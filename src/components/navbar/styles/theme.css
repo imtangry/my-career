@@ -1,0 +1,19 @@
+.theme-switcher{
+    opacity: 0.6;
+    transition: all .3s ease-in-out;
+}
+.theme-switcher:hover{
+    opacity: 1;
+}
+.theme-switcher.dark-mode {
+    background: url('/images/light-theme.svg') center no-repeat;
+    width: 18px;
+    height:  18px;
+}
+
+.theme-switcher.light-mode {
+    background: url('/images/dark-theme.svg') center no-repeat;
+    width: 15px;
+    height:  18px;
+}
+

@@ -1,0 +1,20 @@
+.swap-card {
+    border: 1px solid transparent;
+    mask-image: radial-gradient(36px at 50% 126px, transparent 36px, black 36px);
+    -webkit-mask-image: radial-gradient(36px at 50% 126px, transparent 36px, black 36px);
+}
+
+.swap-card+.swap-card {
+    border: 1px solid transparent;
+    mask-image: radial-gradient(36px at 50% -2px, transparent 36px, black 36px);
+    -webkit-mask-image: radial-gradient(36px at 50% -2px, transparent 36px, black 36px);
+}
+
+.page-swap .wallet-adapter-dropdown,
+.page-swap .wallet-adapter-button {
+    width: 100%;
+}
+
+.page-swap .wallet-adapter-button{
+    justify-content: center;
+}

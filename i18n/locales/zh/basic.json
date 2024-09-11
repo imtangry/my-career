@@ -1,0 +1,12 @@
+{
+    "swap": "闪兑",
+    "staking": "质押",
+    "adminPanel": "控制台",
+    "changeWallet": "切换钱包",
+    "connecting": "连接中 ...",
+    "copyAddress": "复制地址",
+    "copied": "复制成功",
+    "disconnect": "断开连接",
+    "hasWallet": "连接",
+    "noWallet": "连接钱包"
+}

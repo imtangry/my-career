@@ -1,0 +1,12 @@
+{
+    "swap": "Swap",
+    "staking": "Staking",
+    "adminPanel": "Dashboard",
+    "changeWallet": "Change wallet",
+    "connecting": "Connecting ...",
+    "copyAddress": "Copy address",
+    "copied": "Copied",
+    "disconnect": "Disconnect",
+    "hasWallet": "Connect",
+    "noWallet": "Select Wallet"
+}
