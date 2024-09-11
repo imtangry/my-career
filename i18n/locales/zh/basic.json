@@ -8,5 +8,11 @@
     "copied": "复制成功",
     "disconnect": "断开连接",
     "hasWallet": "连接",
-    "noWallet": "连接钱包"
+    "noWallet": "连接钱包",
+    "add": "添加",
+    "resumeDescription": "关于我",
+    "resumeSkill":"工作技能",
+    "resumeCompany": "工作经历",
+    "resumeProject":"项目经历",
+    "resumeSection": "其他集合"
 }

@@ -12,9 +12,11 @@ import {
 import {Label} from '@/components/ui/label'
 import {useConnection, useWallet} from '@solana/wallet-adapter-react'
 import {LAMPORTS_PER_SOL} from '@solana/web3.js'
+import Link from 'next/link'
 import {NextPage} from 'next/types'
 import {useEffect, useState} from 'react'
 
+import {useTranslation} from '~/i18n/client'
 import {Lang} from '~/i18n/config'
 
 interface AdminPanelProps {
@@ -23,7 +25,27 @@ interface AdminPanelProps {
   }
 }
 
+const AddButton = ({lang, type}: {lang: Lang; type: string}) => {
+  const {t} = useTranslation(lang)
+  return (
+    <Button className='w-24'>
+      <Link
+        href={{
+          pathname: '/content/-1',
+          query: {
+            type
+          }
+        }}
+        scroll={false}
+      >
+        {t('add')}
+      </Link>
+    </Button>
+  )
+}
+
 const AdminPanel: NextPage<AdminPanelProps> = ({params: {lang}}) => {
+  const {t} = useTranslation(lang)
   const {publicKey} = useWallet()
   const {connection} = useConnection()
   const [balance, setBalance] = useState<number>(0)
@@ -55,13 +77,76 @@ const AdminPanel: NextPage<AdminPanelProps> = ({params: {lang}}) => {
 
       <Card className='mt-8 w-full'>
         <CardHeader>
-          <CardTitle>创建代币</CardTitle>
+          <CardTitle>{t('resumeDescription')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className='flex flex-col space-y-4'></div>
         </CardContent>
         <CardFooter>
-          <Button>创建</Button>
+          <AddButton
+            lang={lang}
+            type='description'
+          />
+        </CardFooter>
+      </Card>
+
+      <Card className='mt-8 w-full'>
+        <CardHeader>
+          <CardTitle>{t('resumeSkill')}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className='flex flex-col space-y-4'></div>
+        </CardContent>
+        <CardFooter>
+          <AddButton
+            lang={lang}
+            type='skill'
+          />
+        </CardFooter>
+      </Card>
+
+      <Card className='mt-8 w-full'>
+        <CardHeader>
+          <CardTitle>{t('resumeCompany')}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className='flex flex-col space-y-4'></div>
+        </CardContent>
+        <CardFooter>
+          <AddButton
+            lang={lang}
+            type='company'
+          />
+        </CardFooter>
+      </Card>
+
+      <Card className='mt-8 w-full'>
+        <CardHeader>
+          <CardTitle>{t('resumeProject')}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className='flex flex-col space-y-4'></div>
+        </CardContent>
+        <CardFooter>
+          <AddButton
+            lang={lang}
+            type='project'
+          />
+        </CardFooter>
+      </Card>
+
+      <Card className='mt-8 w-full'>
+        <CardHeader>
+          <CardTitle>{t('resumeSection')}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className='flex flex-col space-y-4'></div>
+        </CardContent>
+        <CardFooter>
+          <AddButton
+            lang={lang}
+            type='section'
+          />
         </CardFooter>
       </Card>
     </div>

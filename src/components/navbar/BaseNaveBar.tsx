@@ -21,7 +21,7 @@ const NavBar: React.FC<NavBarProps> = async ({children, lang}) => {
         <div className='flex h-full items-center justify-between'>
           <div className='h-12 cursor-pointer'>
             <Image
-              src='/images/logo.svg'
+              src='/images/logo.png'
               height={0}
               width={0}
               sizes='100vw'
@@ -34,7 +34,7 @@ const NavBar: React.FC<NavBarProps> = async ({children, lang}) => {
               <NavList lang={lang} />
             </div>
           </nav>
-          <div className='ml-auto space-x-2 flex items-center'>
+          <div className='ml-auto flex items-center space-x-2'>
             <div className='ml-auto flex w-8 items-center justify-center'>
               <ThemeSwitch />
             </div>

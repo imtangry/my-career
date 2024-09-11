@@ -8,5 +8,11 @@
     "copied": "Copied",
     "disconnect": "Disconnect",
     "hasWallet": "Connect",
-    "noWallet": "Select Wallet"
+    "noWallet": "Select Wallet",
+    "add": "Add",
+    "resumeDescription": "About Me",
+    "resumeSkill":"My Skills",
+    "resumeCompany": "Company",
+    "resumeProject":"My Projects",
+    "resumeSection": "New Section"
 }

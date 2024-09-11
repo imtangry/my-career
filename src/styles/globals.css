@@ -78,7 +78,7 @@
 }
 
 .hover-underline::before {
-  content: "";
+  content: '';
   position: absolute;
   width: 0;
   height: 2px;
@@ -89,8 +89,37 @@
   transition: width 0.3s ease;
 }
 
-.hover-underline:hover::before, .hover-underline.active::before {
+.hover-underline:hover::before,
+.hover-underline.active::before {
   width: 100%;
   left: 0;
   transform: translateX(0);
+}
+
+/*恢复被tailwind覆盖的样式*/
+.markdown-wrapper ol,
+.markdown-wrapper ul,
+.markdown-wrapper menu {
+  list-style: revert;
+  margin: revert;
+  padding: revert;
+}
+
+.markdown-wrapper h1,
+.markdown-wrapper h2,
+.markdown-wrapper h3,
+.markdown-wrapper h4,
+.markdown-wrapper h5,
+.markdown-wrapper h6,
+.markdown-wrapper pre{
+  font-weight: revert;
+  font-size: revert;
+  margin: revert;
+  padding: revert;
+}
+
+.markdown-wrapper a{
+  font-weight: revert;
+  text-decoration: revert;
+  color: revert;
 }

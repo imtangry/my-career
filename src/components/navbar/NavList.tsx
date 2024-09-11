@@ -37,7 +37,7 @@ export const NavList = ({lang}: {lang: Lang}) => {
 
   useEffect(() => {
     if (publicKey) {
-      setNavList(list)
+      setNavList(list.map((nav) => ({...nav, label: t(nav.label)})))
     } else {
       setNavList([])
     }
@@ -59,7 +59,7 @@ export const NavList = ({lang}: {lang: Lang}) => {
         >
           <div className='flex items-center gap-1 px-8 py-1'>
             <div className='capitalize'>
-              <span>{t(nav.label)}</span>
+              <span>{nav.label}</span>
             </div>
           </div>
         </div>
