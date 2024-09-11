@@ -1,7 +1,7 @@
 'use client'
 export const PageBackButton = () => {
   return (
-    <div className='absolute right-3 top-3'>
+    <div className='absolute right-3 top-3 z-10'>
       <button
         className='text-gray-500 hover:text-gray-900'
         onClick={() => window.history.back()}
