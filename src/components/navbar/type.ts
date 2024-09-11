@@ -1,8 +1,6 @@
 import {ReactNode} from 'react'
 
 export enum MenuLink {
-  SWAP = '/swap',
-  STAKING = '/staking',
   ADMIN_PANEL = '/admin-panel'
 }
 

@@ -3,23 +3,15 @@
 import {useCustomPathname} from '@/hooks/route/useCustomPathname'
 import {useRedirect} from '@/hooks/route/useRedirect'
 import {cn} from '@/lib/utils'
+import {useWallet} from '@solana/wallet-adapter-react'
+import {useEffect, useState} from 'react'
 
 import {useTranslation} from '~/i18n/client'
 import {Lang} from '~/i18n/config'
 
 import {MenuLink, NavbarItem} from './type'
-import { useWallet } from '@solana/wallet-adapter-react'
-import { useEffect, useState } from 'react'
 
 const list: NavbarItem[] = [
-  {
-    label: 'swap',
-    path: MenuLink.SWAP
-  },
-  {
-    label: 'staking',
-    path: MenuLink.STAKING
-  },
   {
     label: 'adminPanel',
     path: MenuLink.ADMIN_PANEL
@@ -29,7 +21,7 @@ const list: NavbarItem[] = [
 export const NavList = ({lang}: {lang: Lang}) => {
   console.log('lang3', lang)
   const [navList, setNavList] = useState<NavbarItem[]>(list)
-  const { publicKey } = useWallet()
+  const {publicKey} = useWallet()
   const pathname = useCustomPathname()
   const {redirectToUrl} = useRedirect()
   const {t} = useTranslation(lang)
@@ -43,13 +35,13 @@ export const NavList = ({lang}: {lang: Lang}) => {
     redirectToUrl(path)
   }
 
-  useEffect(()=>{
-    if(publicKey){
+  useEffect(() => {
+    if (publicKey) {
       setNavList(list)
-    }else {
-      setNavList(list.slice(0, 2))
+    } else {
+      setNavList([])
     }
-  },[publicKey])
+  }, [publicKey])
 
   return (
     <>
