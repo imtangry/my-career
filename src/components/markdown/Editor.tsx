@@ -2,6 +2,7 @@
 
 import {Button} from '@/components/ui/button'
 import {Textarea} from '@/components/ui/textarea'
+import {uuidv4} from '@walletconnect/utils'
 import {useEffect, useState} from 'react'
 import ReactMarkdown from 'react-markdown'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
@@ -17,10 +18,20 @@ const addBlankLinesAfterHtmlTags = (content: string): string => {
 export const Editor = () => {
   const [content, setContent] = useState('')
 
+  const handleSave = async () => {
+    fetch('/api/upload', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({id: uuidv4(), title: 'test', content})
+    })
+  }
   useEffect(() => {
     console.log(content)
     console.log(addBlankLinesAfterHtmlTags(content))
   }, [content])
+
   return (
     <div className='markdown-wrapper relative flex h-full w-full flex-col'>
       <Textarea
@@ -64,7 +75,7 @@ export const Editor = () => {
       </div>
       <Button
         className='mt-6 h-12'
-        onClick={() => console.log(content)}
+        onClick={handleSave}
       >
         Save
       </Button>

@@ -1,5 +1,6 @@
 'use client'
 
+import SortableList from '@/components/sortable-drag/SortableDrag'
 import {Button} from '@/components/ui/button'
 import {
   Card,
@@ -23,6 +24,13 @@ interface AdminPanelProps {
   params: {
     lang: Lang
   }
+}
+
+type ContentItem = {
+  id: string
+  title: string
+  content: string
+  type: string
 }
 
 const AddButton = ({lang, type}: {lang: Lang; type: string}) => {
@@ -49,7 +57,12 @@ const AdminPanel: NextPage<AdminPanelProps> = ({params: {lang}}) => {
   const {publicKey} = useWallet()
   const {connection} = useConnection()
   const [balance, setBalance] = useState<number>(0)
-  console.log('AdminPanel', lang, publicKey, connection)
+
+  const [contents, setContents] = useState<ContentItem[]>([])
+  const [categories, setCategories] = useState<Record<string, ContentItem[]>>(
+    {}
+  )
+
   useEffect(() => {
     if (publicKey) {
       ;(async function getBalanceEvery10Seconds() {
@@ -58,6 +71,37 @@ const AdminPanel: NextPage<AdminPanelProps> = ({params: {lang}}) => {
       })()
     }
   }, [publicKey])
+
+  useEffect(() => {
+    // 根据 type 对内容进行分类
+    console.log('contents', contents)
+    const categorized = contents.reduce(
+      (acc, item) => {
+        const {type} = item
+        if (!acc[type]) {
+          acc[type] = []
+        }
+        acc[type].push(item)
+        return acc
+      },
+      {} as Record<string, ContentItem[]>
+    )
+
+    setCategories(categorized)
+  }, [contents])
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      const response = await fetch('/api/files')
+      const {data} = await response.json()
+      if (data) {
+        setContents(data)
+      } else {
+        setContents([])
+      }
+    }
+    fetchContent()
+  }, [])
   return (
     <div className='container mx-auto flex flex-col items-center justify-center'>
       <Card className='mt-14 w-full'>
@@ -95,7 +139,11 @@ const AdminPanel: NextPage<AdminPanelProps> = ({params: {lang}}) => {
           <CardTitle>{t('resumeSkill')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className='flex flex-col space-y-4'></div>
+          <div className='flex flex-col space-y-4'>
+            {categories.skill?.map((item) => (
+              <div key={item.id}>{item.title}</div>
+            ))}
+          </div>
         </CardContent>
         <CardFooter>
           <AddButton
@@ -110,7 +158,9 @@ const AdminPanel: NextPage<AdminPanelProps> = ({params: {lang}}) => {
           <CardTitle>{t('resumeCompany')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className='flex flex-col space-y-4'></div>
+          <div className='flex flex-col space-y-4'>
+            <SortableList></SortableList>
+          </div>
         </CardContent>
         <CardFooter>
           <AddButton
