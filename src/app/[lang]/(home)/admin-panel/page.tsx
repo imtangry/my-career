@@ -73,8 +73,6 @@ const AdminPanel: NextPage<AdminPanelProps> = ({params: {lang}}) => {
   }, [publicKey])
 
   useEffect(() => {
-    // 根据 type 对内容进行分类
-    console.log('contents', contents)
     const categorized = contents.reduce(
       (acc, item) => {
         const {type} = item
@@ -86,7 +84,6 @@ const AdminPanel: NextPage<AdminPanelProps> = ({params: {lang}}) => {
       },
       {} as Record<string, ContentItem[]>
     )
-
     setCategories(categorized)
   }, [contents])
 
@@ -102,6 +99,8 @@ const AdminPanel: NextPage<AdminPanelProps> = ({params: {lang}}) => {
     }
     fetchContent()
   }, [])
+
+  console.log('categories', categories)
   return (
     <div className='container mx-auto flex flex-col items-center justify-center'>
       <Card className='mt-14 w-full'>
@@ -124,7 +123,9 @@ const AdminPanel: NextPage<AdminPanelProps> = ({params: {lang}}) => {
           <CardTitle>{t('resumeDescription')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className='flex flex-col space-y-4'></div>
+          <div className='flex flex-col space-y-4'>
+            <SortableList items={categories.description}></SortableList>
+          </div>
         </CardContent>
         <CardFooter>
           <AddButton

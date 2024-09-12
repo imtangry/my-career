@@ -1,7 +1,9 @@
 'use client'
 
 import {Button} from '@/components/ui/button'
+import {Input} from '@/components/ui/input'
 import {Textarea} from '@/components/ui/textarea'
+import {cn} from '@/lib/utils'
 import {uuidv4} from '@walletconnect/utils'
 import {useEffect, useState} from 'react'
 import ReactMarkdown from 'react-markdown'
@@ -15,8 +17,15 @@ const addBlankLinesAfterHtmlTags = (content: string): string => {
   return content.replace(endTagRegex, `$1\n\n`)
 }
 
-export const Editor = () => {
+export const Editor = ({
+  type,
+  className
+}: {
+  type: string
+  className?: string
+}) => {
   const [content, setContent] = useState('')
+  const [title, setTitle] = useState('')
 
   const handleSave = async () => {
     fetch('/api/upload', {
@@ -24,19 +33,28 @@ export const Editor = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({id: uuidv4(), title: 'test', content})
+      body: JSON.stringify({id: uuidv4(), title, type, content})
     })
   }
-  useEffect(() => {
-    console.log(content)
-    console.log(addBlankLinesAfterHtmlTags(content))
-  }, [content])
 
   return (
-    <div className='markdown-wrapper relative flex h-full w-full flex-col'>
+    <div
+      className={cn(
+        'markdown-wrapper relative flex h-full w-full flex-col',
+        className
+      )}
+    >
+      <Input
+        type='text'
+        placeholder='输入内容标题'
+        className='mb-6'
+        onChange={(e) => {
+          setTitle(e.target.value)
+        }}
+      />
       <Textarea
-        className='w-full'
-        placeholder='Type your content here.'
+        className='h-24 w-full'
+        placeholder='输入你的markdown内容，可以从语雀等平台里的编辑器导出'
         onChange={(e) => {
           setContent(e.target.value)
         }}

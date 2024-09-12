@@ -20,7 +20,7 @@ const list: NavbarItem[] = [
 
 export const NavList = ({lang}: {lang: Lang}) => {
   console.log('lang3', lang)
-  const [navList, setNavList] = useState<NavbarItem[]>(list)
+  const [navList, setNavList] = useState<NavbarItem[]>([])
   const {publicKey} = useWallet()
   const pathname = useCustomPathname()
   const {redirectToUrl} = useRedirect()

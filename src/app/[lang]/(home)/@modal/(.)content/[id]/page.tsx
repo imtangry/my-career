@@ -40,16 +40,26 @@ const Page: NextPage<LandingProps> = async ({
   await new Promise((resolve) => setTimeout(resolve, 2000))
   return (
     <div className='fixed left-0 top-0 z-[1000] h-full w-full overflow-hidden bg-gray-900 bg-opacity-75 p-6'>
-      <div className='relative flex h-full w-full rounded-lg bg-white px-4'>
+      <div className='relative flex h-full w-full rounded-lg bg-white'>
         <PageBackButton />
         <div className='container mx-auto flex flex-col items-center pb-4'>
           <div className='relative flex h-14 w-full items-center border-b'>
-            <h1 className='text-2xl font-bold text-gray-800'>
+            <h1 className='pl-4 text-2xl font-bold text-gray-800'>
               {t(title[type as keyof Title])}
             </h1>
           </div>
-          <div className='mt-6 w-full flex-1 overflow-hidden'>
-            <Editor />
+          <div className='mt-2 w-full flex-1 overflow-hidden'>
+            <Editor
+              className='p-4'
+              type={
+                type as
+                  | 'description'
+                  | 'skill'
+                  | 'company'
+                  | 'project'
+                  | 'section'
+              }
+            />
           </div>
         </div>
       </div>

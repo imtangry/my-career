@@ -1,3 +1,5 @@
+'use client'
+
 import {
   closestCenter,
   DndContext,
@@ -13,11 +15,18 @@ import {
   useSortable
 } from '@dnd-kit/sortable'
 import {CSS} from '@dnd-kit/utilities'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
-const SortableItem = ({id}: any) => {
+export interface SortableItem {
+  id: string
+  content: string
+  type: string
+  title: string
+}
+
+const SortableItem = ({title}: {title: string}) => {
   const {attributes, listeners, setNodeRef, transform, transition} =
-    useSortable({id})
+    useSortable({id: title})
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -34,26 +43,35 @@ const SortableItem = ({id}: any) => {
       {...attributes}
       {...listeners}
     >
-      {id}
+      {title}
     </div>
   )
 }
 
-const SortableList = () => {
-  const [items, setItems] = useState(['Item 1', 'Item 2', 'Item 3'])
-
+const SortableList = ({items = []}: {items: SortableItem[]}) => {
+  const [list, setList] = useState<SortableItem[]>([])
   const sensors = useSensors(useSensor(PointerSensor))
 
   const handleDragEnd = (event: DragEndEvent) => {
     const {active, over} = event
     if (over && active.id !== over.id) {
-      setItems((items) => {
-        const oldIndex = items.indexOf(active.id as string)
-        const newIndex = items.indexOf(over.id as string)
+      setList((items) => {
+        const oldIndex = items.findIndex(
+          (item) => item.id === (active.id as string)
+        )
+        const newIndex = items.findIndex(
+          (item) => item.id === (over.id as string)
+        )
         return arrayMove(items, oldIndex, newIndex)
       })
     }
   }
+
+  useEffect(() => {
+    setList(items)
+  }, [])
+
+  console.log('list', items)
 
   return (
     <DndContext
@@ -65,10 +83,10 @@ const SortableList = () => {
         items={items}
         strategy={rectSortingStrategy}
       >
-        {items.map((id) => (
+        {list.map((item) => (
           <SortableItem
-            key={id}
-            id={id}
+            key={item.id}
+            title={item.title}
           />
         ))}
       </SortableContext>

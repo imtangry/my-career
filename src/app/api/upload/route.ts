@@ -12,13 +12,13 @@ if (!fs.existsSync(filesDir)) {
 
 export async function POST(req: NextRequest) {
   const params = await req.json()
-  const {id, title, content} = params
+  const {id, title, content, type} = params
 
   console.log('Received content', params)
   // 验证数据完整性
-  if (!id || !title || !content) {
+  if (!id || !title || !content || !type) {
     return NextResponse.json(
-      {error: 'Missing id, title, or content'},
+      {error: 'Missing id, title, content, or type'},
       {status: 400}
     )
   }
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
 
   // 写入文件
   try {
-    fs.writeFileSync(filePath, JSON.stringify({id, title, content}, null, 2))
+    fs.writeFileSync(filePath, JSON.stringify(params, null, 2))
     return NextResponse.json(
       {message: 'Content saved successfully'},
       {status: 200}
